@@ -13,31 +13,7 @@
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-          },
-          colors: {
-            stone: {
-              50: '#fafaf9',
-              100: '#f5f5f4',
-              200: '#e7e5e4',
-              300: '#d6d3d1',
-              400: '#a8a29e',
-              500: '#78716c',
-              600: '#57534e',
-              700: '#44403c',
-              800: '#292524',
-              900: '#1c1917',
-            },
-            amber: {
-              50: '#fffbeb',
-              100: '#fef3c7',
-              200: '#fde68a',
-              300: '#fcd34d',
-              400: '#fbbf24',
-              500: '#f59e0b',
-            }
-          }
+          fontFamily: { sans: ['Inter', 'sans-serif'] }
         }
       }
     }
@@ -47,231 +23,362 @@
 
     .fade-up {
       opacity: 0;
-      transform: translateY(24px);
+      transform: translateY(22px);
       transition: opacity 0.6s ease, transform 0.6s ease;
     }
-    .fade-up.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
 
-    .fade-in {
-      opacity: 0;
-      transition: opacity 0.7s ease;
-    }
-    .fade-in.visible {
-      opacity: 1;
-    }
+    .fade-in { opacity: 0; transition: opacity 0.7s ease; }
+    .fade-in.visible { opacity: 1; }
 
     .stagger-1 { transition-delay: 0.05s; }
     .stagger-2 { transition-delay: 0.15s; }
     .stagger-3 { transition-delay: 0.25s; }
     .stagger-4 { transition-delay: 0.35s; }
 
-    .card-hover {
-      transition: box-shadow 0.2s ease, transform 0.2s ease;
-    }
+    .card-hover { transition: box-shadow 0.2s ease, transform 0.2s ease; }
     .card-hover:hover {
       box-shadow: 0 4px 24px 0 rgba(120,113,108,0.10);
       transform: translateY(-2px);
     }
 
-    .btn-primary {
+    .btn-amber {
+      background-color: #d97706;
       transition: background-color 0.15s ease, transform 0.15s ease;
     }
-    .btn-primary:hover {
-      background-color: #b45309;
+    .btn-amber:hover { background-color: #b45309; transform: translateY(-1px); }
+    .btn-amber:active { transform: translateY(0); }
+
+    .btn-outline {
+      transition: border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+    }
+    .btn-outline:hover {
+      border-color: #78716c;
+      color: #292524;
       transform: translateY(-1px);
     }
-    .btn-primary:active {
-      transform: translateY(0);
-    }
 
-    .btn-secondary {
-      transition: border-color 0.15s ease, color 0.15s ease;
+    /* phone float */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
     }
-    .btn-secondary:hover {
-      border-color: #78716c;
-      color: #44403c;
-    }
-
-    .dog-illustration {
-      background: linear-gradient(135deg, #f5f5f4 0%, #fef3c7 100%);
-    }
-
-    /* Subtle scanner animation */
-    @keyframes scan {
-      0% { top: 10%; opacity: 0.6; }
-      50% { top: 80%; opacity: 1; }
-      100% { top: 10%; opacity: 0.6; }
-    }
-    .scanner-line {
-      animation: scan 2.8s ease-in-out infinite;
-    }
-
-    @keyframes pulse-ring {
-      0% { transform: scale(0.95); opacity: 0.5; }
-      50% { transform: scale(1.05); opacity: 0.9; }
-      100% { transform: scale(0.95); opacity: 0.5; }
-    }
-    .pulse-ring {
-      animation: pulse-ring 2s ease-in-out infinite;
-    }
+    .phone-float { animation: float 5s ease-in-out infinite; }
   </style>
 </head>
 <body class="bg-white text-stone-800 antialiased">
 
-  <!-- Nav -->
+  <!-- ── Nav ─────────────────────────────────────────────────────── -->
   <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-stone-100">
     <div class="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
       <div class="flex items-center gap-2">
         <div class="w-7 h-7 rounded-lg bg-amber-100 flex items-center justify-center">
           <i data-lucide="scan-face" class="w-4 h-4 text-amber-600"></i>
         </div>
-        <span class="font-semibold text-stone-800 tracking-tight">Puppier</span>
+        <span class="font-semibold text-stone-900 tracking-tight">Puppier</span>
       </div>
-      <a href="#waitlist" class="btn-primary text-sm font-medium px-4 py-1.5 bg-amber-600 text-white rounded-lg">
+      <a href="#waitlist"
+         class="btn-amber text-sm font-medium px-4 py-1.5 rounded-lg text-white">
         Join waitlist
       </a>
     </div>
   </nav>
 
-  <!-- Hero -->
-  <section class="pt-32 pb-24 px-6">
-    <div class="max-w-3xl mx-auto text-center">
+  <!-- ── Hero ──────────────────────────────────────────────────────── -->
+  <section class="pt-28 pb-20 px-6">
+    <div class="max-w-5xl mx-auto flex flex-col lg:flex-row items-center gap-14 lg:gap-20">
 
-      <div class="fade-in inline-flex items-center gap-2 bg-stone-100 text-stone-500 text-xs font-medium px-3 py-1.5 rounded-full mb-8">
-        <i data-lucide="heart" class="w-3 h-3 text-amber-500"></i>
-        For dog owners who want to understand their dog better
-      </div>
-
-      <h1 class="fade-up text-5xl sm:text-6xl font-bold text-stone-900 leading-tight tracking-tight mb-6">
-        See how your dog<br/>
-        <span class="text-amber-600">really</span> feels
-      </h1>
-
-      <p class="fade-up stagger-1 text-lg text-stone-500 max-w-xl mx-auto leading-relaxed mb-10">
-        Point your camera at your dog's face. Puppier reads their expression and tells you if they're happy, anxious, curious, or tired — in seconds.
-      </p>
-
-      <div class="fade-up stagger-2 flex flex-col sm:flex-row items-center justify-center gap-3">
-        <a href="#waitlist" class="btn-primary w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-amber-600 text-white font-medium px-6 py-3 rounded-xl text-base">
-          <i data-lucide="bell" class="w-4 h-4"></i>
-          Get early access
-        </a>
-        <a href="#how-it-works" class="btn-secondary w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-stone-200 text-stone-600 font-medium px-6 py-3 rounded-xl text-base">
-          See how it works
-          <i data-lucide="arrow-down" class="w-4 h-4"></i>
-        </a>
-      </div>
-
-      <p class="fade-in stagger-3 mt-6 text-sm text-stone-400">
-        No account needed. Works on iOS &amp; Android.
-      </p>
-    </div>
-
-    <!-- Hero illustration -->
-    <div class="fade-up stagger-3 max-w-sm mx-auto mt-16">
-      <div class="relative rounded-2xl overflow-hidden dog-illustration aspect-square flex items-center justify-center border border-stone-200/60">
-        <!-- Placeholder dog silhouette -->
-        <svg viewBox="0 0 200 200" class="w-48 h-48 opacity-20" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <ellipse cx="100" cy="130" rx="48" ry="38" fill="#78716c"/>
-          <circle cx="100" cy="82" r="32" fill="#78716c"/>
-          <ellipse cx="72" cy="62" rx="11" ry="18" fill="#78716c" transform="rotate(-15 72 62)"/>
-          <ellipse cx="128" cy="62" rx="11" ry="18" fill="#78716c" transform="rotate(15 128 62)"/>
-          <circle cx="91" cy="88" r="5" fill="white"/>
-          <circle cx="109" cy="88" r="5" fill="white"/>
-          <circle cx="91" cy="88" r="2.5" fill="#1c1917"/>
-          <circle cx="109" cy="88" r="2.5" fill="#1c1917"/>
-          <ellipse cx="100" cy="97" rx="8" ry="5" fill="#a8a29e"/>
-        </svg>
-
-        <!-- Scanner overlay -->
-        <div class="absolute inset-0">
-          <!-- Corner brackets -->
-          <div class="absolute top-6 left-6 w-8 h-8 border-t-2 border-l-2 border-amber-500 rounded-tl"></div>
-          <div class="absolute top-6 right-6 w-8 h-8 border-t-2 border-r-2 border-amber-500 rounded-tr"></div>
-          <div class="absolute bottom-6 left-6 w-8 h-8 border-b-2 border-l-2 border-amber-500 rounded-bl"></div>
-          <div class="absolute bottom-6 right-6 w-8 h-8 border-b-2 border-r-2 border-amber-500 rounded-br"></div>
-
-          <!-- Scanning line -->
-          <div class="scanner-line absolute left-6 right-6 h-px bg-amber-400/60"></div>
+      <!-- Left: copy -->
+      <div class="flex-1 text-center lg:text-left">
+        <div class="fade-in inline-flex items-center gap-2 bg-stone-100 text-stone-500 text-xs font-medium px-3 py-1.5 rounded-full mb-7">
+          <i data-lucide="heart" class="w-3 h-3 text-amber-500"></i>
+          For owners who want to understand their dog better
         </div>
 
-        <!-- Result badge -->
-        <div class="absolute bottom-5 left-1/2 -translate-x-1/2 bg-white border border-stone-200 rounded-xl px-4 py-2 flex items-center gap-2 shadow-sm whitespace-nowrap">
-          <div class="w-2 h-2 rounded-full bg-green-400 pulse-ring"></div>
-          <span class="text-sm font-medium text-stone-700">Happy &amp; relaxed</span>
-          <span class="text-xs text-stone-400">94%</span>
+        <h1 class="fade-up text-5xl sm:text-6xl font-bold text-stone-900 leading-[1.08] tracking-tight mb-5">
+          See how your dog<br/>
+          <span class="text-amber-600">really</span> feels
+        </h1>
+
+        <p class="fade-up stagger-1 text-lg text-stone-500 max-w-md mx-auto lg:mx-0 leading-relaxed mb-9">
+          Point your camera at your dog's face. Puppier reads their expression and tells you if they're happy, anxious, curious, or tired — instantly.
+        </p>
+
+        <!-- Store buttons -->
+        <div class="fade-up stagger-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 mb-7">
+          <!-- App Store -->
+          <a href="#waitlist"
+             class="w-full sm:w-auto flex items-center gap-3 bg-stone-900 text-white px-5 py-3 rounded-xl hover:bg-stone-800 transition-colors">
+            <svg class="w-6 h-6 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+            </svg>
+            <div class="text-left">
+              <div class="text-xs text-stone-400 leading-none mb-0.5">Download on the</div>
+              <div class="text-sm font-semibold leading-none">App Store</div>
+            </div>
+          </a>
+
+          <!-- Google Play -->
+          <a href="#waitlist"
+             class="w-full sm:w-auto flex items-center gap-3 bg-stone-900 text-white px-5 py-3 rounded-xl hover:bg-stone-800 transition-colors">
+            <svg class="w-6 h-6 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M3.18 23.76c.38.21.82.22 1.24.03l12.09-6.86-2.79-2.79-10.54 9.62zM.5 1.77C.19 2.1 0 2.6 0 3.23v17.54c0 .63.19 1.13.51 1.46l.07.07 9.82-9.82v-.23L.57 1.7l-.07.07zM20.07 10.3l-2.31-1.31-3.1 3.1 3.1 3.1 2.33-1.32c.66-.38.66-.99 0-1.37l-.02-.2zM4.42.21L16.51 7.07l-2.79 2.79L3.18.24C3.6.05 4.04.06 4.42.21z"/>
+            </svg>
+            <div class="text-left">
+              <div class="text-xs text-stone-400 leading-none mb-0.5">Get it on</div>
+              <div class="text-sm font-semibold leading-none">Google Play</div>
+            </div>
+          </a>
+        </div>
+
+        <p class="fade-in stagger-3 text-sm text-stone-400">
+          Coming soon — <a href="#waitlist" class="underline underline-offset-2 hover:text-stone-600 transition-colors">join the waitlist</a> for early access.
+        </p>
+      </div>
+
+      <!-- Right: phone mockup SVG -->
+      <div class="fade-up stagger-2 flex-shrink-0 w-full max-w-[220px] mx-auto lg:mx-0">
+        <div class="phone-float drop-shadow-xl">
+          <svg viewBox="0 0 260 500" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full">
+
+            <!-- Phone shadow -->
+            <rect x="18" y="18" width="228" height="472" rx="38" fill="black" opacity="0.07"/>
+
+            <!-- Phone body -->
+            <rect x="8" y="8" width="244" height="484" rx="38" fill="#18120e"/>
+            <rect x="8" y="8" width="244" height="484" rx="38" fill="none" stroke="#2d2018" stroke-width="1.5"/>
+
+            <!-- Screen -->
+            <rect x="17" y="18" width="226" height="464" rx="30" fill="#fafaf9"/>
+
+            <!-- Dynamic island -->
+            <rect x="96" y="23" width="68" height="12" rx="6" fill="#18120e"/>
+            <!-- Camera dot -->
+            <circle cx="158" cy="29" r="3.5" fill="#120c09"/>
+
+            <!-- Status bar -->
+            <text x="28" y="48" font-family="Inter,sans-serif" font-size="8" font-weight="600" fill="#44403c">9:41</text>
+            <!-- Battery -->
+            <rect x="205" y="42" width="24" height="10" rx="2.5" fill="none" stroke="#78716c" stroke-width="1.2"/>
+            <rect x="229" y="45" width="3" height="4" rx="1" fill="#78716c"/>
+            <rect x="206.5" y="43.5" width="20" height="7" rx="1.5" fill="#44403c"/>
+
+            <!-- App top bar -->
+            <rect x="17" y="56" width="226" height="38" fill="white"/>
+            <rect x="17" y="93" width="226" height="0.8" fill="#f0eeec"/>
+            <text x="30" y="80" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="#1c1917">Puppier</text>
+            <!-- Settings icon (simplified) -->
+            <circle cx="219" cy="75" r="13" fill="#fef3c7"/>
+            <circle cx="219" cy="75" r="5" fill="none" stroke="#d97706" stroke-width="1.8"/>
+            <circle cx="219" cy="75" r="2" fill="#d97706"/>
+            <line x1="219" y1="68" x2="219" y2="66" stroke="#d97706" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="219" y1="84" x2="219" y2="82" stroke="#d97706" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="226" y1="75" x2="224" y2="75" stroke="#d97706" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="214" y1="75" x2="212" y2="75" stroke="#d97706" stroke-width="1.8" stroke-linecap="round"/>
+
+            <!-- Camera viewfinder area -->
+            <rect x="17" y="94" width="226" height="218" fill="#f0efed"/>
+
+            <!-- ── DOG FACE ── -->
+            <!-- Left ear (floppy) -->
+            <ellipse cx="74" cy="152" rx="24" ry="36" fill="#c49258" transform="rotate(-18,74,152)"/>
+            <ellipse cx="74" cy="155" rx="14" ry="23" fill="#e8c285" transform="rotate(-18,74,155)"/>
+
+            <!-- Right ear -->
+            <ellipse cx="186" cy="152" rx="24" ry="36" fill="#c49258" transform="rotate(18,186,152)"/>
+            <ellipse cx="186" cy="155" rx="14" ry="23" fill="#e8c285" transform="rotate(18,186,155)"/>
+
+            <!-- Head -->
+            <ellipse cx="130" cy="196" rx="72" ry="67" fill="#d4a96a"/>
+
+            <!-- Forehead highlight -->
+            <ellipse cx="130" cy="162" rx="32" ry="20" fill="#ddb87a" opacity="0.55"/>
+
+            <!-- Left eye white -->
+            <ellipse cx="109" cy="186" rx="13" ry="12" fill="white"/>
+            <!-- Right eye white -->
+            <ellipse cx="151" cy="186" rx="13" ry="12" fill="white"/>
+
+            <!-- Left iris -->
+            <circle cx="111" cy="187" r="8.5" fill="#3d2410"/>
+            <!-- Right iris -->
+            <circle cx="153" cy="187" r="8.5" fill="#3d2410"/>
+
+            <!-- Left pupil -->
+            <circle cx="112" cy="188" r="5" fill="#1a0f08"/>
+            <!-- Right pupil -->
+            <circle cx="154" cy="188" r="5" fill="#1a0f08"/>
+
+            <!-- Eye shines -->
+            <circle cx="115" cy="184" r="2.5" fill="white"/>
+            <circle cx="157" cy="184" r="2.5" fill="white"/>
+
+            <!-- Muzzle -->
+            <ellipse cx="130" cy="214" rx="27" ry="19" fill="#e8c285"/>
+
+            <!-- Nose -->
+            <ellipse cx="130" cy="206" rx="12" ry="8.5" fill="#2d1b12"/>
+            <ellipse cx="127" cy="203" rx="3.5" ry="2.5" fill="#4a3020" opacity="0.5"/>
+
+            <!-- Mouth -->
+            <line x1="130" y1="214" x2="130" y2="220" stroke="#2d1b12" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M116 220 Q130 232 144 220" stroke="#2d1b12" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+
+            <!-- Cheek blush -->
+            <ellipse cx="93" cy="208" rx="13" ry="8" fill="#e08080" opacity="0.22"/>
+            <ellipse cx="167" cy="208" rx="13" ry="8" fill="#e08080" opacity="0.22"/>
+
+            <!-- ── SCAN OVERLAY ── -->
+            <!-- Light amber tint over viewfinder -->
+            <rect x="17" y="94" width="226" height="218" fill="#fef3c7" opacity="0.10"/>
+
+            <!-- Detection box corners (amber) -->
+            <!-- top-left -->
+            <path d="M58 120 L58 103 L75 103" stroke="#f59e0b" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- top-right -->
+            <path d="M185 103 L202 103 L202 120" stroke="#f59e0b" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- bottom-left -->
+            <path d="M58 288 L58 305 L75 305" stroke="#f59e0b" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- bottom-right -->
+            <path d="M185 305 L202 305 L202 288" stroke="#f59e0b" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+            <!-- Animated scan line (SMIL) -->
+            <g>
+              <animateTransform attributeName="transform" type="translate"
+                values="0,0; 0,202; 0,0" dur="2.6s"
+                repeatCount="indefinite" calcMode="ease-in-out"/>
+              <line x1="58" y1="103" x2="202" y2="103"
+                    stroke="#f59e0b" stroke-width="1.8" opacity="0.85" stroke-linecap="round"/>
+              <!-- Glow beneath scan line -->
+              <rect x="58" y="103" width="144" height="8" fill="#f59e0b" opacity="0.15"/>
+            </g>
+
+            <!-- ── RESULT CARD ── -->
+            <rect x="22" y="320" width="216" height="90" rx="14" fill="white"/>
+            <rect x="22" y="320" width="216" height="90" rx="14" fill="none" stroke="#e7e5e4" stroke-width="1"/>
+
+            <!-- Pulse dot -->
+            <circle cx="40" cy="340" r="5" fill="#4ade80">
+              <animate attributeName="r" values="4;6;4" dur="2s" repeatCount="indefinite" calcMode="ease-in-out"/>
+              <animate attributeName="opacity" values="1;0.6;1" dur="2s" repeatCount="indefinite" calcMode="ease-in-out"/>
+            </circle>
+
+            <!-- Emotion label -->
+            <text x="52" y="344" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#1c1917">Happy &amp; relaxed</text>
+            <!-- Confidence score -->
+            <text x="189" y="344" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#d97706">94%</text>
+
+            <!-- Bar label -->
+            <text x="32" y="364" font-family="Inter,sans-serif" font-size="8.5" fill="#a8a29e">Confidence</text>
+
+            <!-- Bar track -->
+            <rect x="32" y="370" width="196" height="7" rx="3.5" fill="#f5f5f4"/>
+            <!-- Bar fill -->
+            <rect x="32" y="370" width="184" height="7" rx="3.5" fill="#f59e0b"/>
+            <!-- Bar shine -->
+            <rect x="32" y="370" width="184" height="3.5" rx="1.5" fill="white" opacity="0.18"/>
+
+            <!-- Sub label -->
+            <text x="32" y="386" font-family="Inter,sans-serif" font-size="7.5" fill="#a8a29e">Analyzed 14 facial landmark points</text>
+            <!-- Happy icon -->
+            <circle cx="216" cy="366" r="10" fill="#fef3c7"/>
+            <path d="M211 368 Q216 373 221 368" stroke="#d97706" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <circle cx="213" cy="364" r="1" fill="#d97706"/>
+            <circle cx="219" cy="364" r="1" fill="#d97706"/>
+
+            <!-- ── BOTTOM NAV ── -->
+            <rect x="17" y="420" width="226" height="62" rx="0" fill="white"/>
+            <rect x="17" y="420" width="226" height="0.8" fill="#f0eeec"/>
+
+            <!-- Home (active) -->
+            <rect x="52" y="428" width="26" height="20" rx="6" fill="#fef3c7"/>
+            <rect x="58" y="432" width="14" height="12" rx="3" fill="#d97706" opacity="0.8"/>
+
+            <!-- History -->
+            <rect x="117" y="428" width="26" height="20" rx="6" fill="#f5f5f4"/>
+            <line x1="124" y1="434" x2="136" y2="434" stroke="#d6d3d1" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="124" y1="438" x2="136" y2="438" stroke="#d6d3d1" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="124" y1="442" x2="130" y2="442" stroke="#d6d3d1" stroke-width="1.5" stroke-linecap="round"/>
+
+            <!-- Profile -->
+            <rect x="182" y="428" width="26" height="20" rx="6" fill="#f5f5f4"/>
+            <circle cx="195" cy="434" r="3" fill="#d6d3d1"/>
+            <path d="M188 448 Q195 443 202 448" stroke="#d6d3d1" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+            <!-- Home bar -->
+            <rect x="100" y="456" width="60" height="4" rx="2" fill="#e7e5e4"/>
+
+            <!-- Side buttons -->
+            <rect x="252" y="118" width="5" height="48" rx="2.5" fill="#120c09"/>
+            <rect x="3" y="104" width="5" height="32" rx="2.5" fill="#120c09"/>
+            <rect x="3" y="146" width="5" height="32" rx="2.5" fill="#120c09"/>
+            <rect x="3" y="188" width="5" height="32" rx="2.5" fill="#120c09"/>
+          </svg>
         </div>
       </div>
+
     </div>
   </section>
 
-  <!-- How it works -->
+  <!-- ── How it works ───────────────────────────────────────────── -->
   <section id="how-it-works" class="py-24 px-6 bg-stone-50">
     <div class="max-w-4xl mx-auto">
-
-      <div class="text-center mb-16 fade-up">
+      <div class="text-center mb-14 fade-up">
         <p class="text-xs font-semibold uppercase tracking-widest text-amber-600 mb-3">How it works</p>
         <h2 class="text-3xl sm:text-4xl font-bold text-stone-900 tracking-tight">Three steps, that's it</h2>
       </div>
 
-      <div class="grid sm:grid-cols-3 gap-6">
-
-        <div class="card-hover fade-up stagger-1 bg-white border border-stone-200 rounded-2xl p-6">
+      <div class="grid sm:grid-cols-3 gap-5">
+        <div class="card-hover fade-up stagger-1 bg-white border border-stone-200 rounded-2xl p-7">
           <div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center mb-5">
             <i data-lucide="camera" class="w-5 h-5 text-amber-600"></i>
           </div>
           <div class="text-xs font-semibold text-stone-400 uppercase tracking-wider mb-2">Step 1</div>
           <h3 class="text-base font-semibold text-stone-800 mb-2">Point &amp; scan</h3>
-          <p class="text-sm text-stone-500 leading-relaxed">Open the app and point your camera at your dog's face. No special setup needed.</p>
+          <p class="text-sm text-stone-500 leading-relaxed">Open the app and point your camera at your dog's face. No setup, no training required.</p>
         </div>
 
-        <div class="card-hover fade-up stagger-2 bg-white border border-stone-200 rounded-2xl p-6">
+        <div class="card-hover fade-up stagger-2 bg-white border border-stone-200 rounded-2xl p-7">
           <div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center mb-5">
             <i data-lucide="cpu" class="w-5 h-5 text-amber-600"></i>
           </div>
           <div class="text-xs font-semibold text-stone-400 uppercase tracking-wider mb-2">Step 2</div>
           <h3 class="text-base font-semibold text-stone-800 mb-2">Instant analysis</h3>
-          <p class="text-sm text-stone-500 leading-relaxed">Our model reads your dog's facial cues — ears, eyes, mouth — and scores their emotional state.</p>
+          <p class="text-sm text-stone-500 leading-relaxed">Our model reads ears, eyes, and mouth position to score your dog's emotional state in real time.</p>
         </div>
 
-        <div class="card-hover fade-up stagger-3 bg-white border border-stone-200 rounded-2xl p-6">
+        <div class="card-hover fade-up stagger-3 bg-white border border-stone-200 rounded-2xl p-7">
           <div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center mb-5">
             <i data-lucide="bar-chart-2" class="w-5 h-5 text-amber-600"></i>
           </div>
           <div class="text-xs font-semibold text-stone-400 uppercase tracking-wider mb-2">Step 3</div>
           <h3 class="text-base font-semibold text-stone-800 mb-2">Understand &amp; track</h3>
-          <p class="text-sm text-stone-500 leading-relaxed">See your dog's mood over time and learn what makes them happiest.</p>
+          <p class="text-sm text-stone-500 leading-relaxed">Build a mood history and spot what makes your dog happiest over time.</p>
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- Features -->
+  <!-- ── Features ──────────────────────────────────────────────── -->
   <section class="py-24 px-6">
     <div class="max-w-4xl mx-auto">
-
-      <div class="text-center mb-16 fade-up">
+      <div class="text-center mb-14 fade-up">
         <p class="text-xs font-semibold uppercase tracking-widest text-amber-600 mb-3">Features</p>
         <h2 class="text-3xl sm:text-4xl font-bold text-stone-900 tracking-tight">Built for dog owners</h2>
       </div>
 
-      <div class="grid sm:grid-cols-2 gap-5">
-
-        <div class="card-hover fade-up stagger-1 flex gap-4 p-5 rounded-2xl border border-stone-100 bg-white">
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div class="card-hover fade-up stagger-1 flex gap-4 p-6 rounded-2xl border border-stone-100 bg-white">
           <div class="flex-shrink-0 w-9 h-9 rounded-lg bg-stone-100 flex items-center justify-center">
             <i data-lucide="zap" class="w-4 h-4 text-stone-600"></i>
           </div>
           <div>
             <h3 class="text-sm font-semibold text-stone-800 mb-1">Real-time results</h3>
-            <p class="text-sm text-stone-500 leading-relaxed">Analysis happens on-device in under a second. No waiting, no uploading.</p>
+            <p class="text-sm text-stone-500 leading-relaxed">Analysis runs on-device in under a second. No uploading, no waiting.</p>
           </div>
         </div>
 
-        <div class="card-hover fade-up stagger-2 flex gap-4 p-5 rounded-2xl border border-stone-100 bg-white">
+        <div class="card-hover fade-up stagger-2 flex gap-4 p-6 rounded-2xl border border-stone-100 bg-white">
           <div class="flex-shrink-0 w-9 h-9 rounded-lg bg-stone-100 flex items-center justify-center">
             <i data-lucide="shield" class="w-4 h-4 text-stone-600"></i>
           </div>
@@ -281,135 +388,154 @@
           </div>
         </div>
 
-        <div class="card-hover fade-up stagger-3 flex gap-4 p-5 rounded-2xl border border-stone-100 bg-white">
+        <div class="card-hover fade-up stagger-3 flex gap-4 p-6 rounded-2xl border border-stone-100 bg-white">
           <div class="flex-shrink-0 w-9 h-9 rounded-lg bg-stone-100 flex items-center justify-center">
             <i data-lucide="trending-up" class="w-4 h-4 text-stone-600"></i>
           </div>
           <div>
             <h3 class="text-sm font-semibold text-stone-800 mb-1">Mood history</h3>
-            <p class="text-sm text-stone-500 leading-relaxed">Track patterns across days and weeks to understand your dog's wellbeing.</p>
+            <p class="text-sm text-stone-500 leading-relaxed">Track emotional patterns across days and weeks to understand your dog's wellbeing.</p>
           </div>
         </div>
 
-        <div class="card-hover fade-up stagger-4 flex gap-4 p-5 rounded-2xl border border-stone-100 bg-white">
+        <div class="card-hover fade-up stagger-4 flex gap-4 p-6 rounded-2xl border border-stone-100 bg-white">
           <div class="flex-shrink-0 w-9 h-9 rounded-lg bg-stone-100 flex items-center justify-center">
             <i data-lucide="dog" class="w-4 h-4 text-stone-600"></i>
           </div>
           <div>
             <h3 class="text-sm font-semibold text-stone-800 mb-1">All breeds supported</h3>
-            <p class="text-sm text-stone-500 leading-relaxed">Trained on hundreds of breeds. From Pugs to Great Danes.</p>
+            <p class="text-sm text-stone-500 leading-relaxed">Trained on hundreds of breeds, from Pugs to Great Danes to mixed dogs.</p>
           </div>
         </div>
 
+        <div class="card-hover fade-up stagger-1 flex gap-4 p-6 rounded-2xl border border-stone-100 bg-white">
+          <div class="flex-shrink-0 w-9 h-9 rounded-lg bg-stone-100 flex items-center justify-center">
+            <i data-lucide="bell" class="w-4 h-4 text-stone-600"></i>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-stone-800 mb-1">Wellbeing alerts</h3>
+            <p class="text-sm text-stone-500 leading-relaxed">Get notified when your dog shows repeated signs of stress or discomfort.</p>
+          </div>
+        </div>
+
+        <div class="card-hover fade-up stagger-2 flex gap-4 p-6 rounded-2xl border border-stone-100 bg-white">
+          <div class="flex-shrink-0 w-9 h-9 rounded-lg bg-stone-100 flex items-center justify-center">
+            <i data-lucide="share-2" class="w-4 h-4 text-stone-600"></i>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-stone-800 mb-1">Share with your vet</h3>
+            <p class="text-sm text-stone-500 leading-relaxed">Export mood reports to share context with your veterinarian.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Social proof / emotions detected -->
+  <!-- ── Testimonials ───────────────────────────────────────────── -->
   <section class="py-24 px-6 bg-stone-50">
     <div class="max-w-4xl mx-auto">
-
       <div class="text-center mb-14 fade-up">
-        <p class="text-xs font-semibold uppercase tracking-widest text-amber-600 mb-3">What Puppier detects</p>
-        <h2 class="text-3xl sm:text-4xl font-bold text-stone-900 tracking-tight">Eight emotional states</h2>
-        <p class="mt-4 text-stone-500 max-w-md mx-auto text-base leading-relaxed">Puppier recognizes the full range of how your dog is feeling, not just happy or sad.</p>
+        <p class="text-xs font-semibold uppercase tracking-widest text-amber-600 mb-3">Early feedback</p>
+        <h2 class="text-3xl sm:text-4xl font-bold text-stone-900 tracking-tight">Dog owners love it</h2>
       </div>
 
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <div class="grid sm:grid-cols-3 gap-5">
 
-        <div class="fade-up stagger-1 text-center p-5 bg-white rounded-2xl border border-stone-200">
-          <div class="w-9 h-9 rounded-full bg-green-50 flex items-center justify-center mx-auto mb-3">
-            <i data-lucide="sun" class="w-4 h-4 text-green-500"></i>
+        <div class="card-hover fade-up stagger-1 bg-white border border-stone-200 rounded-2xl p-7 flex flex-col gap-4">
+          <div class="flex gap-0.5">
+            <i data-lucide="star" class="w-3.5 h-3.5 text-amber-400 fill-amber-400"></i>
+            <i data-lucide="star" class="w-3.5 h-3.5 text-amber-400 fill-amber-400"></i>
+            <i data-lucide="star" class="w-3.5 h-3.5 text-amber-400 fill-amber-400"></i>
+            <i data-lucide="star" class="w-3.5 h-3.5 text-amber-400 fill-amber-400"></i>
+            <i data-lucide="star" class="w-3.5 h-3.5 text-amber-400 fill-amber-400"></i>
           </div>
-          <p class="text-sm font-medium text-stone-700">Happy</p>
+          <p class="text-sm text-stone-600 leading-relaxed flex-1">
+            "I always thought Bella was fine at the vet. Puppier showed me she was actually anxious every single visit. We've been working on it — total game changer."
+          </p>
+          <div class="flex items-center gap-3 pt-2 border-t border-stone-100">
+            <div class="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0">
+              <i data-lucide="user" class="w-4 h-4 text-amber-600"></i>
+            </div>
+            <div>
+              <p class="text-xs font-semibold text-stone-700">Sarah M.</p>
+              <p class="text-xs text-stone-400">Golden Retriever owner</p>
+            </div>
+          </div>
         </div>
 
-        <div class="fade-up stagger-2 text-center p-5 bg-white rounded-2xl border border-stone-200">
-          <div class="w-9 h-9 rounded-full bg-blue-50 flex items-center justify-center mx-auto mb-3">
-            <i data-lucide="moon" class="w-4 h-4 text-blue-400"></i>
+        <div class="card-hover fade-up stagger-2 bg-white border border-stone-200 rounded-2xl p-7 flex flex-col gap-4">
+          <div class="flex gap-0.5">
+            <i data-lucide="star" class="w-3.5 h-3.5 text-amber-400 fill-amber-400"></i>
+            <i data-lucide="star" class="w-3.5 h-3.5 text-amber-400 fill-amber-400"></i>
+            <i data-lucide="star" class="w-3.5 h-3.5 text-amber-400 fill-amber-400"></i>
+            <i data-lucide="star" class="w-3.5 h-3.5 text-amber-400 fill-amber-400"></i>
+            <i data-lucide="star" class="w-3.5 h-3.5 text-amber-400 fill-amber-400"></i>
           </div>
-          <p class="text-sm font-medium text-stone-700">Tired</p>
+          <p class="text-sm text-stone-600 leading-relaxed flex-1">
+            "Max started scoring 'stressed' after our move. That nudged me to take him to the vet, and it turned out he had a minor ear issue. Puppier picked it up before I did."
+          </p>
+          <div class="flex items-center gap-3 pt-2 border-t border-stone-100">
+            <div class="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0">
+              <i data-lucide="user" class="w-4 h-4 text-amber-600"></i>
+            </div>
+            <div>
+              <p class="text-xs font-semibold text-stone-700">Daniel K.</p>
+              <p class="text-xs text-stone-400">Beagle owner</p>
+            </div>
+          </div>
         </div>
 
-        <div class="fade-up stagger-3 text-center p-5 bg-white rounded-2xl border border-stone-200">
-          <div class="w-9 h-9 rounded-full bg-amber-50 flex items-center justify-center mx-auto mb-3">
-            <i data-lucide="search" class="w-4 h-4 text-amber-500"></i>
+        <div class="card-hover fade-up stagger-3 bg-white border border-stone-200 rounded-2xl p-7 flex flex-col gap-4">
+          <div class="flex gap-0.5">
+            <i data-lucide="star" class="w-3.5 h-3.5 text-amber-400 fill-amber-400"></i>
+            <i data-lucide="star" class="w-3.5 h-3.5 text-amber-400 fill-amber-400"></i>
+            <i data-lucide="star" class="w-3.5 h-3.5 text-amber-400 fill-amber-400"></i>
+            <i data-lucide="star" class="w-3.5 h-3.5 text-amber-400 fill-amber-400"></i>
+            <i data-lucide="star" class="w-3.5 h-3.5 text-amber-400 fill-amber-400"></i>
           </div>
-          <p class="text-sm font-medium text-stone-700">Curious</p>
-        </div>
-
-        <div class="fade-up stagger-4 text-center p-5 bg-white rounded-2xl border border-stone-200">
-          <div class="w-9 h-9 rounded-full bg-orange-50 flex items-center justify-center mx-auto mb-3">
-            <i data-lucide="alert-circle" class="w-4 h-4 text-orange-400"></i>
+          <p class="text-sm text-stone-600 leading-relaxed flex-1">
+            "I scan Luna every morning with my coffee. Knowing she's happy and calm before I leave for work just takes the guilt out of my day completely."
+          </p>
+          <div class="flex items-center gap-3 pt-2 border-t border-stone-100">
+            <div class="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0">
+              <i data-lucide="user" class="w-4 h-4 text-amber-600"></i>
+            </div>
+            <div>
+              <p class="text-xs font-semibold text-stone-700">Priya N.</p>
+              <p class="text-xs text-stone-400">French Bulldog owner</p>
+            </div>
           </div>
-          <p class="text-sm font-medium text-stone-700">Anxious</p>
-        </div>
-
-        <div class="fade-up stagger-1 text-center p-5 bg-white rounded-2xl border border-stone-200">
-          <div class="w-9 h-9 rounded-full bg-purple-50 flex items-center justify-center mx-auto mb-3">
-            <i data-lucide="wind" class="w-4 h-4 text-purple-400"></i>
-          </div>
-          <p class="text-sm font-medium text-stone-700">Playful</p>
-        </div>
-
-        <div class="fade-up stagger-2 text-center p-5 bg-white rounded-2xl border border-stone-200">
-          <div class="w-9 h-9 rounded-full bg-red-50 flex items-center justify-center mx-auto mb-3">
-            <i data-lucide="shield-alert" class="w-4 h-4 text-red-400"></i>
-          </div>
-          <p class="text-sm font-medium text-stone-700">Stressed</p>
-        </div>
-
-        <div class="fade-up stagger-3 text-center p-5 bg-white rounded-2xl border border-stone-200">
-          <div class="w-9 h-9 rounded-full bg-teal-50 flex items-center justify-center mx-auto mb-3">
-            <i data-lucide="heart" class="w-4 h-4 text-teal-500"></i>
-          </div>
-          <p class="text-sm font-medium text-stone-700">Content</p>
-        </div>
-
-        <div class="fade-up stagger-4 text-center p-5 bg-white rounded-2xl border border-stone-200">
-          <div class="w-9 h-9 rounded-full bg-stone-100 flex items-center justify-center mx-auto mb-3">
-            <i data-lucide="minus-circle" class="w-4 h-4 text-stone-500"></i>
-          </div>
-          <p class="text-sm font-medium text-stone-700">Calm</p>
         </div>
 
       </div>
     </div>
   </section>
 
-  <!-- Waitlist CTA -->
+  <!-- ── Waitlist CTA ───────────────────────────────────────────── -->
   <section id="waitlist" class="py-24 px-6">
-    <div class="max-w-xl mx-auto text-center">
+    <div class="max-w-lg mx-auto text-center">
       <div class="fade-up bg-stone-50 border border-stone-200 rounded-2xl p-10">
-
         <div class="w-11 h-11 rounded-xl bg-amber-100 flex items-center justify-center mx-auto mb-6">
           <i data-lucide="bell-ring" class="w-5 h-5 text-amber-600"></i>
         </div>
-
-        <h2 class="text-2xl sm:text-3xl font-bold text-stone-900 tracking-tight mb-3">
-          Be first to know
-        </h2>
+        <h2 class="text-2xl sm:text-3xl font-bold text-stone-900 tracking-tight mb-3">Be first to know</h2>
         <p class="text-stone-500 mb-8 leading-relaxed">
-          Puppier is launching soon. Leave your email and we'll notify you when it's ready.
+          Puppier is launching soon on iOS and Android. Leave your email and we'll notify you when it's ready.
         </p>
 
-        <form class="flex flex-col sm:flex-row gap-3" onsubmit="handleSubmit(event)">
+        <form id="waitlist-form" class="flex flex-col sm:flex-row gap-3" onsubmit="handleSubmit(event)">
           <input
-            type="email"
-            id="email"
-            required
+            type="email" id="email" required
             placeholder="your@email.com"
             class="flex-1 px-4 py-3 rounded-xl border border-stone-200 text-stone-800 text-sm placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400 bg-white transition"
           />
-          <button
-            type="submit"
-            class="btn-primary bg-amber-600 text-white font-medium px-5 py-3 rounded-xl text-sm whitespace-nowrap"
-          >
+          <button type="submit"
+            class="btn-amber text-white font-medium px-5 py-3 rounded-xl text-sm whitespace-nowrap">
             Notify me
           </button>
         </form>
 
-        <div id="success-msg" class="hidden mt-5 flex items-center justify-center gap-2 text-sm text-green-600">
+        <div id="success-msg" class="hidden mt-5 items-center justify-center gap-2 text-sm text-green-600">
           <i data-lucide="check-circle" class="w-4 h-4"></i>
           You're on the list. We'll be in touch.
         </div>
@@ -419,7 +545,7 @@
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- ── Footer ────────────────────────────────────────────────── -->
   <footer class="border-t border-stone-100 py-8 px-6">
     <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
       <div class="flex items-center gap-2">
@@ -429,49 +555,38 @@
         <span class="text-sm font-semibold text-stone-700">Puppier</span>
       </div>
       <p class="text-xs text-stone-400">&copy; 2026 Puppier. Made with care for dog owners.</p>
-      <div class="flex items-center gap-4">
-        <a href="#" class="text-xs text-stone-400 hover:text-stone-600 transition">Privacy</a>
-        <a href="#" class="text-xs text-stone-400 hover:text-stone-600 transition">Contact</a>
+      <div class="flex items-center gap-5">
+        <a href="#" class="text-xs text-stone-400 hover:text-stone-600 transition-colors">Privacy</a>
+        <a href="#" class="text-xs text-stone-400 hover:text-stone-600 transition-colors">Contact</a>
       </div>
     </div>
   </footer>
 
   <script>
-    // Initialize Lucide icons
     lucide.createIcons();
 
-    // IntersectionObserver scroll animations
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
+        if (entry.isIntersecting) entry.target.classList.add('visible');
       });
     }, { threshold: 0.12 });
 
-    document.querySelectorAll('.fade-up, .fade-in').forEach(el => {
-      observer.observe(el);
-    });
+    document.querySelectorAll('.fade-up, .fade-in').forEach(el => observer.observe(el));
 
-    // Waitlist form
     function handleSubmit(e) {
       e.preventDefault();
-      const form = e.target;
+      document.getElementById('waitlist-form').style.display = 'none';
       const msg = document.getElementById('success-msg');
-      form.style.display = 'none';
       msg.classList.remove('hidden');
       msg.classList.add('flex');
       lucide.createIcons();
     }
 
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        const t = document.querySelector(a.getAttribute('href'));
+        if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
   </script>
